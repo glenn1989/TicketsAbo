@@ -1,0 +1,50 @@
+﻿@model Tickets.ViewModel.WedstrijdVM;
+
+@{
+    ViewData["Title"] = "Wedstrijden";
+}
+<div class="container">
+
+    <h1>Wedstrijden</h1>
+
+    <form asp-action="Index" asp-controller="Wedstrijd">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+                <label asp-for="Thuisploeg"></label>
+                <select asp-for="Thuisploeg" class="form-select" asp-items="@Model.Club">
+                    <option disabled-selected></option>
+                </select>
+                <span asp-validation-for="Thuisploeg" class="text-danger"></span>
+        </div>
+        <div class="button">
+                <input type="submit" value="Team selecteren" class="btn-primary" />
+        </div>
+    </form>
+
+
+     <div class="container-fluid">
+@if(@Model.wedstrijdlistVMs.Count() > 0){
+
+    @foreach(var item in Model.wedstrijdlistVMs)
+    {
+        <div class="card text-center contentbox">
+            <h5 class="card-header">@item.Thuisploeg - @item.Uitploeg</h5>
+            <div class="card-body">
+                
+                <p><span class="bi bi-calendar-week">@item.Datum.Value.ToString("dd MMMM yyyy")</span></p>
+                <p><span class="bi bi-clock">@item.Uur</span></p>
+                <a class="btn-primary btn" asp-action="Ticketselect" asp-controller="Wedstrijd" asp-route-id="@item.WedstrijdId">Koop tickets</a>
+             </div>
+         </div>
+    }
+    
+}
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

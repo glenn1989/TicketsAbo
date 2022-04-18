@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-Tickets-E8F9F324-70B0-4757-8A55-017BBFB952B2</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tickets.Domain\Tickets.Domain.csproj" />
+    <ProjectReference Include="..\Tickets.Services\Tickets.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\Club_Brugge.png" />
+    <None Include="wwwroot\Images\Header.jpg" />
+    <None Include="wwwroot\Images\KAA_Gent.png" />
+    <None Include="wwwroot\Images\KRC_Genk.png" />
+    <None Include="wwwroot\Images\playing.png" />
+    <None Include="wwwroot\Images\png-clipart-football-sport-public-domain-white-sport.png" />
+    <None Include="wwwroot\Images\Royal_Antwerp.png" />
+    <None Include="wwwroot\Images\RSC_Anderlecht.svg" />
+    <None Include="wwwroot\Images\standard_luik.png" />
+    <None Include="wwwroot\Images\two-tickets-icon-ticket-ico-11562902873mix2fznwjo.png" />
+  </ItemGroup>
+
+</Project>

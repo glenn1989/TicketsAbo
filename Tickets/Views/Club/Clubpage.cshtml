@@ -1,0 +1,24 @@
+﻿@model Tickets.ViewModel.ClubVM;
+@{
+    ViewData["Title"] = "Clubpage";
+    
+}
+
+
+<div id="ploeginfo" class="container">
+    <h1>Clubpage</h1>
+
+    <p>Welkom op de pagina van @Model.Clubnaam</p>
+    <div id="text">
+        
+    </div>
+    
+    <a asp-controller="Wedstrijd" asp-action="Wedstrijden" asp-route-id="@Model.Stamnummer">Wedstrijden</a>
+</div>
+
+    
+
+
+
+
+

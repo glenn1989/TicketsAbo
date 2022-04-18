@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Tickets.ViewModel.ClubVM>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Ticketshop Pro League</h1>
+    <p>Welkom bij de officiële ticket hub van de Jupiler Pro League.</p>
+
+
+     <div class="card-deck">
+        @foreach(var item in Model)
+        {
+         
+            <div class="card box">
+                <img class="logo" src="~/Images/(@Html.DisplayFor(modelitem => item.Clubnaam)).png" alt="@item.Clubnaam">
+                <div class="card-body">
+                    <h5>@item.Clubnaam</h5>
+                    
+                    <a asp-controller="Abonnement" asp-action="Index" asp-route-id="@item.Stamnummer">Koop hier uw abonnement voor @item.Clubnaam</a>
+                </div>
+            </div>
+
+        }
+
+    </div>
+
+
+    </div>
+

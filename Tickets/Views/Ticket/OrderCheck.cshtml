@@ -1,0 +1,133 @@
+﻿@model Tickets.ViewModel.ShoppingCartVM;
+@{
+    ViewData["Title"] = "OrderCheck";
+}
+
+<h3>
+    <em>Review</em> your cart:
+</h3>
+
+
+
+@if (Model != null)
+{
+
+    <form asp-action="Validate">
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].WedstrijdId)
+
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Prijs)
+
+                </th>
+                <th>
+                    Subtotaal
+                </th>
+            </tr>
+            @{ float total = 0;}
+            @for (var i = 0; i < Model.Cart.Count; i++)
+            {
+
+                <tr>
+                    @Html.HiddenFor(m => Model.Cart[i].WedstrijdId)
+                    @Html.HiddenFor(m => Model.Cart[i].Aankoopdatum)
+                    @Html.HiddenFor(m => Model.Cart[i].VakId)
+                    @Html.HiddenFor(m => Model.Cart[i].StadionId)
+                    
+                    <td>
+                        <p>@Model.Cart[i].Thuisploeg - @Model.Cart[i].Uitploeg</p>
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].AantalTickets" type="number"
+                               min="1" max="4" data-aantal=@i />
+
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Prijs" type="number"
+                               readonly="readonly" />
+
+                        @{
+                            var subtotaal = (float)Model.Cart[i].Prijs
+                                            * (float)Model.Cart[i].AantalTickets;
+                            total = total + subtotaal;
+                        }
+                    </td>
+                    <td>
+                        <input id="@("txtSubTotal" + @i)"
+                               value="@subtotaal"
+                               type="number" readonly="readonly" />
+                    </td>
+
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@Model.Cart[i].WedstrijdId">
+
+                            <img src="~/Images/Delete_Icon.png" />
+                        </a>
+
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    <input type="submit" value="Checkout"
+                           class="btn btn-default" />
+                </td>
+            </tr>
+            <tr>
+
+                <td id="cart-total">
+                    Total  <input id="txtTotal" value="@total"
+                                  type="number" readonly="readonly" />
+                </td>
+            </tr>
+        </table>
+    </form>
+}
+else
+{ @Html.Raw("Your shoppingcart is empty at the moment")
+}
+
+
+<a asp-controller="Wedstrijd" asp-action="Index"> Continue</a>
+
+@section Scripts {
+
+
+    <script>
+        // window.addL....("load", setup)
+        
+       // const setup = () => { }..
+
+       
+        $( () => {
+            //selecteer alle  elementen waarvan die eindigen met een id-name 'aantal'
+            $("[id$=Aantal]").on('change',  (e) => {
+                console.log("change");
+                let number = $(e.currentTarget).data("aantal"); // hoeveelste element, bijhouden in een data-aantal atttribute
+                let selectorPrice = "Cart_" + number + "__Prijs";
+                let price = $("#" + selectorPrice).val();  // document.getElementbyId("") -> $()
+                let selector = "txtSubTotal" + number;
+                $('#' + selector).val($(e.currentTarget).val()
+                                                      * price);
+                let sum = 0;
+                $('[id^=txtSubTotal]').each( (index, element) => {
+                    if (!isNaN($(element).val())) {
+                        sum += parseFloat($(element).val());
+                    }
+                });
+
+                $('#txtTotal').val(sum);
+            });
+
+        });
+    </script>
+}
+
