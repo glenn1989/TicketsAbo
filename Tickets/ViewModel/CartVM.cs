@@ -26,5 +26,7 @@ namespace Tickets.ViewModel
         public int? WedstrijdId { get; set; }
 
         public bool? IsAbonnement { get; set; }
+
+        public WedstrijdVM wedstrijdvm { get; set; }
     }
 }

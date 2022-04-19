@@ -12,6 +12,8 @@
 @if (Model != null)
 {
 
+    
+
     <form asp-action="Validate">
         <table>
             <tr>
@@ -35,8 +37,53 @@
             @{ float total = 0;}
             @for (var i = 0; i < Model.Cart.Count; i++)
             {
+                
+                                        
+                if (Model.Cart[i].IsAbonnement == true)
+                {
+                    
+                    <tr>
+                            @Html.HiddenFor(m => Model.Cart[i].ThuisploegId)
+                            @Html.HiddenFor(m => Model.Cart[i].VakId)
+                            @Html.HiddenFor(m => Model.Cart[i].IsAbonnement)
+                            @Html.HiddenFor(m => Model.Cart[i].Aankoopdatum)
 
-                <tr>
+                            <td>Abonnement voor @Model.Cart[i].Thuisploeg</td>
+
+                            <td>
+                            <input asp-for="@Model.Cart[i].AantalTickets" type="number"
+                                  readonly="readonly" data-aantal=@i />
+
+                        </td>
+                        <td>
+
+                            <input asp-for="@Model.Cart[i].Prijs" type="number"
+                                   readonly="readonly" />
+                                   @{
+                                var totaal = (float)Model.Cart[i].Prijs
+                                                * (float)Model.Cart[i].AantalTickets;
+                                total = total + totaal;
+                            }
+                        </td>
+                        <td>
+                            <input id="@("txtSubTotal" + @i)"
+                                   value="@totaal"
+                                   type="number" readonly="readonly" />
+                        </td>
+
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@Model.Cart[i].WedstrijdId">
+
+                                <img src="~/Images/Delete_Icon.png" />
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                } else
+                {
+                    <tr>
                     @Html.HiddenFor(m => Model.Cart[i].WedstrijdId)
                     @Html.HiddenFor(m => Model.Cart[i].Aankoopdatum)
                     @Html.HiddenFor(m => Model.Cart[i].VakId)
@@ -74,7 +121,9 @@
 
                     </td>
                 </tr>
+                }           
             }
+
             <tr>
                 <td>
                     <input type="submit" value="Checkout"

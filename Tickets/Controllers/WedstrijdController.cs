@@ -76,38 +76,54 @@ namespace Tickets.Controllers
         }
 
         //[HttpPost]
-        public async Task<IActionResult> Select(TicketVM entityVM, int id, int id2)
+        public async Task<IActionResult> Select(TicketVM entityVM, int id, int id2, int id3)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            VakStadion vakStadion = new VakStadion(); 
+            VakStadion vakStadion = new VakStadion();
+            CartVM item = new CartVM();
 
-            if(entityVM.wedstrijdID == null)
+            if (id3==0 || id3==null)
             {
-                Club club = await _clubService.FindById(id2, 0);
-                IEnumerable<Wedstrijd> wedstrijds = await _wedstrijdService.FindThuisWedstrijd(id2);
-                vakStadion = await _vakStadionService.FindById(id, club.StadionId);
+
+                Club club = await _clubService.FindById(id, 0);
+                IEnumerable<Wedstrijd> wedstrijds = await _wedstrijdService.FindThuisWedstrijd(id);
+                vakStadion = await _vakStadionService.FindById(id2, club.StadionId);
+                IEnumerable<Wedstrijd> list = await _wedstrijdService.FindThuisWedstrijd(id);
+                List<Wedstrijd> wedstrijden = new List<Wedstrijd>();
+
+                foreach(var i in list)
+                {
+                    wedstrijden.Add(i);
+                }
+
+                item.IsAbonnement = true;
+                item.ThuisploegId = id;
+                item.Thuisploeg = club.Clubnaam;
+                item.VakId = id2;
+                item.AantalTickets = 1;
+                item.Prijs = (float)(vakStadion.Prijs * wedstrijden.Count());
+
+
+            } else
+            {
+                Wedstrijd wedstrijd = await _wedstrijdService.FindById(id, id2);
+                vakStadion = await _vakStadionService.FindById(entityVM.VakId, id2);
+
+
+                item.WedstrijdId = id;
+                item.AantalTickets = entityVM.aantalTickets;
+                item.Prijs = (float)vakStadion.Prijs;
+                item.Aankoopdatum = DateTime.Now;
+                item.Stadion = vakStadion.Stadion.StadionNaam;
+                item.StadionId = vakStadion.StadionId;
+                item.Thuisploeg = wedstrijd.Thuisploeg.Clubnaam;
+                item.Uitploeg = wedstrijd.Uitploeg.Clubnaam;
+                item.VakId = vakStadion.VakId;
             }
-
-            Wedstrijd wedstrijd = await _wedstrijdService.FindById(id, id2);
-            vakStadion = await _vakStadionService.FindById(entityVM.VakId, id2);
-
-            CartVM item = new CartVM
-            {
-                WedstrijdId = id,
-                AantalTickets = entityVM.aantalTickets,
-                Prijs = (float)vakStadion.Prijs,
-                Aankoopdatum = DateTime.Now,
-                Stadion = vakStadion.Stadion.StadionNaam,
-                StadionId = vakStadion.StadionId,
-                Thuisploeg = wedstrijd.Thuisploeg.Clubnaam,
-                Uitploeg = wedstrijd.Uitploeg.Clubnaam,
-                VakId = vakStadion.VakId
-
-            };
 
 
             ShoppingCartVM? shopping;

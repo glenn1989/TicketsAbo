@@ -64,34 +64,6 @@ namespace Tickets.Controllers
 
             return View(wedstrijdVM);
         }
-      
-        public async Task<IActionResult> Select(int id, int id2)
-        {
-            Club club = await _clubService.FindById(id2, 0);
-            IEnumerable<Wedstrijd> wedstrijds = await _wedstrijdService.FindThuisWedstrijd(id2);
-            VakStadion vakStadion = await _vakStadionService.FindById(id, club.StadionId);
-            List<Wedstrijd> games = new List<Wedstrijd>();
-
-            CartVM cart = new CartVM();
-            cart.Prijs = 0;
-
-            foreach(var item in wedstrijds)
-            {
-                games.Add(item);
-            }
-
-            for(int i = 0; i< games.Count; i++)
-            {
-                cart.Prijs += (float)vakStadion.Prijs;
-            }
-
-
-
-
-            return RedirectToAction("Index", "Home");
-        }
-
-
     }
 }
 
