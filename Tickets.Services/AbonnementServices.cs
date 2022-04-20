@@ -28,9 +28,9 @@ namespace Tickets.Services
             return await _abonnementDAO.FindById(id, id2);
         }
 
-        public Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
+        public async Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
         {
-            throw new NotImplementedException();
+           return await _abonnementDAO.FindThuisWedstrijd(id);
         }
 
         public Task<IEnumerable<Abonnement>> GetAll()

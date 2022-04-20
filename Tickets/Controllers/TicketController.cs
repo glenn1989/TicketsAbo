@@ -84,6 +84,24 @@ namespace Tickets.Controllers
             return seatnr;
         }
 
+        private int getHighestAboPlace(IEnumerable<Abonnement> aboBezet, int? vakId)
+        {
+            int highestAbo = 0;
+            List<int> listAbo = new List<int>();
+
+            foreach(var i in aboBezet)
+            {
+                if(i.Plaats.VakId == vakId)
+                {
+                    listAbo.Add((int)i.Plaats.Plaatsnummer);
+                    listAbo.Sort();
+                    highestAbo = listAbo.LastOrDefault();
+                }
+                
+            }
+            return highestAbo;
+        }
+
         [HttpGet]
         public async Task<IActionResult> OrderCheck()
         {
@@ -103,16 +121,27 @@ namespace Tickets.Controllers
               = HttpContext.Session
               .GetObject<ShoppingCartVM>("OrderCheck");
 
-            CartVM? itemToRemove =
-                cartList?.Cart?.FirstOrDefault(r => r.WedstrijdId == id);
+            CartVM? itemToRemove = cartList?.Cart?.FirstOrDefault();
+
+            if (itemToRemove.IsAbonnement == true)
+            {
+               itemToRemove = cartList?.Cart?.FirstOrDefault(a => a.ThuisploegId == id);
+            } else
+            {
+                itemToRemove =
+               cartList?.Cart?.FirstOrDefault(r => r.WedstrijdId == id);
+            }
+           
             
 
             if (itemToRemove != null)
             {
+                
                 cartList?.Cart?.Remove(itemToRemove);
                 HttpContext.Session.SetObject("OrderCheck", cartList);
 
             }
+            
 
             return View("OrderCheck", cartList);
 
@@ -148,6 +177,7 @@ namespace Tickets.Controllers
                         Club club = await _clubService.FindById(item.ThuisploegId,0);
                         List<int> seatnumbers = new List<int>();
                         IEnumerable<Wedstrijd> wedstrijdenAbo = await _wedstrijdService.FindThuisWedstrijd((int)item.ThuisploegId);
+
                         foreach(var j in wedstrijdenAbo)
                         {
                             IEnumerable<Ticket> ticketAbo = await _ticketService.FindThuisWedstrijd(j.WedstrijdId);
@@ -156,11 +186,29 @@ namespace Tickets.Controllers
                             seatnumbers.Sort();
                         }
 
+
                         int highest = seatnumbers.Last();
                         abonnement = new Abonnement();
                         plaats = new Plaat();
 
-                        plaats.Plaatsnummer = ++highest;
+
+                        IEnumerable<Abonnement> aboBezet = await _abonnementService.FindThuisWedstrijd((int)item.ThuisploegId);
+
+                        int highestAboPlace = getHighestAboPlace(aboBezet, item.VakId);
+
+
+                        if(highest+1 == highestAboPlace)
+                        {
+                            plaats.Plaatsnummer = ++highestAboPlace;
+                        } else if(highestAboPlace > highest)
+                        {
+                            plaats.Plaatsnummer = ++highestAboPlace;
+                        } else
+                        {
+                            plaats.Plaatsnummer = ++highest;
+                        }
+
+
                         plaats.StadionId = club.StadionId;
                         plaats.VakId = item.VakId;
                         await _plaatsService.Add(plaats);
@@ -180,6 +228,10 @@ namespace Tickets.Controllers
 
                         IEnumerable<Ticket> ticketsBezet = await _ticketService.FindThuisWedstrijd((int)item.WedstrijdId);
 
+                        Wedstrijd wedstrijd = await _wedstrijdService.FindById((int)item.WedstrijdId,0);
+
+                       
+
                         var aantalBezet = GetPlaats(ticketsBezet, item.VakId).Count();
 
 
@@ -189,12 +241,42 @@ namespace Tickets.Controllers
 
                             IEnumerable<Ticket> tickets = await _ticketService.FindThuisWedstrijd((int)item.WedstrijdId);
 
+                            IEnumerable<Abonnement> aboBezet = await _abonnementService.FindThuisWedstrijd((int)wedstrijd.ThuisploegId);
+
+                            List<int> sortedAboLijst = new List<int>();
+
+                            foreach (var k in aboBezet)
+                            {
+                                if (k.Plaats.VakId == item.VakId)
+                                {
+                                    sortedAboLijst.Add((int)k.Plaats.Plaatsnummer);
+                                    sortedAboLijst.Sort();
+                                }
+
+                            }
+
+
+                            int highestAboPlace = getHighestAboPlace(aboBezet, item.VakId);
+
                             int highestplace = getHighestPlace(tickets, item.VakId);
 
                             plaats = new Plaat();
                             ticket = new Ticket();
 
-                            plaats.Plaatsnummer = ++highestplace;
+                            if(highestAboPlace > highestplace)
+                            {
+                                plaats.Plaatsnummer = ++highestAboPlace;
+
+                            } 
+                            else if(highestplace > highestAboPlace)
+                            {
+                                plaats.Plaatsnummer = ++highestplace;
+                            } else
+                            {
+                                plaats.Plaatsnummer = ++highestplace;
+                            }
+
+
                             plaats.StadionId = item.StadionId;
                             plaats.VakId = item.VakId;
                             await _plaatsService.Add(plaats);
@@ -217,7 +299,8 @@ namespace Tickets.Controllers
             {
                 throw new Exception("error");
             }
-            
+
+            HttpContext.Session.Clear();
             return RedirectToAction("Index","Home");
         }
         

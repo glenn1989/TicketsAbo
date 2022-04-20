@@ -44,9 +44,16 @@ namespace Tickets.Repository
             }
         }
 
-        public Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
+        public async Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _ticketsDb.Abonnements.Include(a => a.Plaats).Where(a => a.Stamnummer == id).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("error in dao");
+            }
         }
 
         public Task<IEnumerable<Abonnement>> GetAll()

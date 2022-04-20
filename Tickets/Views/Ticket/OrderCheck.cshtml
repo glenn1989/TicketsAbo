@@ -72,7 +72,7 @@
                         </td>
 
                         <td>
-                            <a asp-action="Delete" asp-route-id="@Model.Cart[i].WedstrijdId">
+                            <a asp-action="Delete" asp-route-id="@Model.Cart[i].ThuisploegId">
 
                                 <img src="~/Images/Delete_Icon.png" />
                             </a>
@@ -84,6 +84,7 @@
                 } else
                 {
                     <tr>
+                    @Html.HiddenFor(m => Model.Cart[i].ThuisploegId)
                     @Html.HiddenFor(m => Model.Cart[i].WedstrijdId)
                     @Html.HiddenFor(m => Model.Cart[i].Aankoopdatum)
                     @Html.HiddenFor(m => Model.Cart[i].VakId)
