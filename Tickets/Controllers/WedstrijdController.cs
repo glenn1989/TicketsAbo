@@ -123,6 +123,7 @@ namespace Tickets.Controllers
                 item.Thuisploeg = wedstrijd.Thuisploeg.Clubnaam;
                 item.Uitploeg = wedstrijd.Uitploeg.Clubnaam;
                 item.VakId = vakStadion.VakId;
+                item.Datum = (System.DateTime)wedstrijd.Datum;
             }
 
 
@@ -137,7 +138,26 @@ namespace Tickets.Controllers
                 shopping = new ShoppingCartVM();
                 shopping.Cart = new List<CartVM>();
             }
-            shopping.Cart.Add(item);
+
+            if(item.IsAbonnement == true || shopping.Cart.Count() == 0)
+            {
+                shopping.Cart.Add(item);
+            } else
+            {
+                foreach (var i in shopping.Cart.Where(a => a.IsAbonnement == null))
+                {
+                    int datetimeresult = DateTime.Compare((System.DateTime)i.Datum, (System.DateTime)item.Datum);
+
+                    if (datetimeresult == 0)
+                    {
+                        TempData["Status"] = "Men kan maar voor 1 wedstrijd per speeldag tickets aankopen.";
+                        return RedirectToAction("OrderCheck", "Ticket");
+
+                    }
+
+                }
+                shopping.Cart.Add(item);
+            }
 
             HttpContext.Session.SetObject("OrderCheck", shopping);
 

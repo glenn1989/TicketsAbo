@@ -102,6 +102,8 @@ namespace Tickets.Controllers
             return highestAbo;
         }
 
+        
+
         [HttpGet]
         public async Task<IActionResult> OrderCheck()
         {
@@ -243,16 +245,13 @@ namespace Tickets.Controllers
 
                             IEnumerable<Abonnement> aboBezet = await _abonnementService.FindThuisWedstrijd((int)wedstrijd.ThuisploegId);
 
-                            List<int> sortedAboLijst = new List<int>();
 
-                            foreach (var k in aboBezet)
+
+                            List<int> aboZitjes = new List<int>();
+
+                            foreach (var az in aboBezet.Where(a => a.Plaats.VakId == item.VakId))
                             {
-                                if (k.Plaats.VakId == item.VakId)
-                                {
-                                    sortedAboLijst.Add((int)k.Plaats.Plaatsnummer);
-                                    sortedAboLijst.Sort();
-                                }
-
+                                aboZitjes.Add((int)az.Plaats.Plaatsnummer);
                             }
 
 
@@ -260,23 +259,18 @@ namespace Tickets.Controllers
 
                             int highestplace = getHighestPlace(tickets, item.VakId);
 
+
+
                             plaats = new Plaat();
                             ticket = new Ticket();
 
-                            if(highestAboPlace > highestplace)
-                            {
-                                plaats.Plaatsnummer = ++highestAboPlace;
 
-                            } 
-                            else if(highestplace > highestAboPlace)
+                            while (aboZitjes.Contains(highestplace+1))
                             {
-                                plaats.Plaatsnummer = ++highestplace;
-                            } else
-                            {
-                                plaats.Plaatsnummer = ++highestplace;
+                                ++highestplace;
                             }
 
-
+                            plaats.Plaatsnummer = ++highestplace;
                             plaats.StadionId = item.StadionId;
                             plaats.VakId = item.VakId;
                             await _plaatsService.Add(plaats);
@@ -295,6 +289,7 @@ namespace Tickets.Controllers
             {
                 throw new DataException("error");
             } 
+            
             catch (Exception ex)
             {
                 throw new Exception("error");

@@ -22,11 +22,12 @@ namespace Tickets.ViewModel
         public string? Vak { get; set; }
         public int? VakId { get; set; }
         public System.DateTime Aankoopdatum { get; set; }
-        [Display(Name ="Wedstrijd")]
+        [Display(Name ="Wedstrijd/Abonnement")]
         public int? WedstrijdId { get; set; }
 
         public bool? IsAbonnement { get; set; }
 
-        public WedstrijdVM wedstrijdvm { get; set; }
+        public DateTime Datum { get; set; }
+
     }
 }

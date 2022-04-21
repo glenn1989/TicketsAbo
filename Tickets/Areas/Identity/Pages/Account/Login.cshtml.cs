@@ -103,7 +103,9 @@ namespace Tickets.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Wedstrijd");
+
+            //returnUrl = RedirectToAction("Validate", "Ticket");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
