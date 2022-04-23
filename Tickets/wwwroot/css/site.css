@@ -93,16 +93,16 @@ footer{
 .minilogo1{
     width:20px;
     position:relative;
-    top: 32px;
-    left:-159px;
+    top: 35px;
+    left:-170px;
 
 }
 
 .minilogo2 {
     width: 20px;
     position: relative;
-    top: -34px;
-    left:159px;
+    top: -35px;
+    left:170px;
 
 }
 
@@ -141,4 +141,10 @@ footer{
     width: 450px;
     margin: auto;
     margin-top: 2px;
+}
+
+span strong {
+    color:red;
+    margin: 0 auto;
+    
 }

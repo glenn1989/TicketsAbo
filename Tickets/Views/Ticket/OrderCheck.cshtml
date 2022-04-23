@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "OrderCheck";
 }
-
+<div class="pagecontainer">
 <h3>
     Uw winkelmandje:
 </h3>
@@ -15,23 +15,23 @@
     
 
         <form asp-action="Validate">
-            <table class="table">
+            <table class="table tablepage">
                 <thead>
                     <tr>
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.Cart[0].WedstrijdId)
 
                     </th>
 
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
 
                     </th>
-                    <th>
+                    <th class="col-md-1">
                         @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
                     </th>
-                    <th>
+                    <th class="col-md-1">
                         Subtotaal
                     </th>
                 </tr>
@@ -45,7 +45,7 @@
                     if (Model.Cart[i].IsAbonnement == true)
                     {
                         <tbody>
-                             <tr>
+                             <tr class="">
                                 @Html.HiddenFor(m => Model.Cart[i].ThuisploegId)
                                 @Html.HiddenFor(m => Model.Cart[i].VakId)
                                 @Html.HiddenFor(m => Model.Cart[i].IsAbonnement)
@@ -77,7 +77,7 @@
                                 <td>
                                     <a asp-action="Delete" asp-route-id="@Model.Cart[i].ThuisploegId">
 
-                                        <img src="~/Images/Delete_Icon.png" />
+                                        <img class="trash" src="../wwwroot/Images/Logos/trash-garbage-recycle-bin-trash-bin-icon-stencil-symbol-logo-trademark-transparent-png-967562.png" alt="trash" />
                                     </a>
                                 </td>
                             </tr>
@@ -93,15 +93,15 @@
                                 @Html.HiddenFor(m => Model.Cart[i].VakId)
                                 @Html.HiddenFor(m => Model.Cart[i].StadionId)
                     
-                                <td>
+                                <td class="col-md-4">
                                     <p>@Model.Cart[i].Thuisploeg - @Model.Cart[i].Uitploeg</p>
                                 </td>
-                                <td>
+                                <td class="col-md-1">
                                     <input asp-for="@Model.Cart[i].AantalTickets" type="number"
                                            min="1" max="4" data-aantal=@i />
 
                                 </td>
-                                <td>
+                                <td class="col-md-1">
                                     <input asp-for="@Model.Cart[i].Prijs" type="number"
                                            readonly="readonly" />
 
@@ -111,7 +111,7 @@
                                         total = total + subtotaal;
                                     }
                                 </td>
-                                <td>
+                                <td class="col-md-1">
                                     <input id="@("txtSubTotal" + @i)"
                                            value="@subtotaal"
                                            type="number" readonly="readonly" />
@@ -120,7 +120,7 @@
                                 <td>
                                     <a asp-action="Delete" asp-route-id="@Model.Cart[i].WedstrijdId">
 
-                                        <img src="~/Images/Delete_Icon.png" />
+                                        <img class="trash" src="~/Images/trash-garbage-recycle-bin-trash-bin-icon-stencil-symbol-logo-trademark-transparent-png-967562.png" />
                                     </a>
 
                                 </td>
@@ -153,8 +153,12 @@
 
     <a asp-controller="Wedstrijd" asp-action="Index"> Continue</a>
 </div>
-
+<div>
 <span><strong>@TempData["Status"]</strong></span>
+</div>
+</div>
+
+
 
 @section Scripts {
 

@@ -2,55 +2,54 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div>
+    <h1>Index</h1>
 
-<h1>Index</h1>
+        <form asp-action="Index" asp-controller="Abonnement">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                    <label asp-for="VakId">Kies uw vak:</label>
+                    <select asp-for="VakId" class="form-select dropdownsite" asp-items="@Model.Club">
+                        <option disabled-selected></option>
+                    </select>
+                    <span asp-validation-for="VakId" class="text-danger"></span>
+            </div>
+            <div class="button">
+                    <input type="submit" value="Vak selecteren" class="btn-primary btn" />
+            </div>
+        </form>
 
-    <form asp-action="Index" asp-controller="Abonnement">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="mb-3">
-                <label asp-for="VakId">Kies uw vak:</label>
-                <select asp-for="VakId" class="form-select dropdownsite" asp-items="@Model.Club">
-                    <option disabled-selected></option>
-                </select>
-                <span asp-validation-for="VakId" class="text-danger"></span>
-        </div>
-        <div class="button">
-                <input type="submit" value="Vak selecteren" class="btn-primary btn" />
-        </div>
-    </form>
-    <span><strong>@TempData["Status"]</strong></span>
-    
+            <span><strong>@TempData["Status"]</strong></span>
 
-   
+         <div class="container-fluid">
+    @if(@Model != null){
 
-     <div class="container-fluid">
-@if(@Model != null){
-
-        if(@Model.VakId == null || @Model.VakId == 2 || @Model.VakId == 6)
-        {
-            <button class="btn-primary btn btn-koop" disabled>Koop abonnement</button>
-        }
-        else
-        {
-             <a class="btn-primary btn btn-koop" asp-action="Select" asp-controller="Wedstrijd" asp-route-id="@Model.ThuisploegId" asp-route-id2="@Model.VakId">Koop abonnement</a>
-        }
+            if(@Model.VakId == null || @Model.VakId == 2 || @Model.VakId == 6)
+            {
+                <button class="btn-primary btn btn-koop" disabled>Koop abonnement</button>
+            }
+            else
+            {
+                 <a class="btn-primary btn btn-koop" asp-action="Select" asp-controller="Wedstrijd" asp-route-id="@Model.ThuisploegId" asp-route-id2="@Model.VakId">Koop abonnement</a>
+            }
         
        
 
-    @foreach(var item in Model.wedstrijdlistVMs)
-    {
-        <div class="card text-center contentbox">
-            <h5 class="card-header">@item.Thuisploeg - @item.Uitploeg</h5>
-            <div class="card-body">
+        @foreach(var item in Model.wedstrijdlistVMs)
+        {
+            <div class="card text-center contentbox">
+                <h5 class="card-header">@item.Thuisploeg - @item.Uitploeg</h5>
+                <div class="card-body">
                 
-                <p><span class="bi bi-calendar-week">@item.Datum.Value.ToString("dd MMMM yyyy")</span></p>
-                <p><span class="bi bi-clock">@item.Uur</span></p>
+                    <p><span class="bi bi-calendar-week">@item.Datum.Value.ToString("dd MMMM yyyy")</span></p>
+                    <p><span class="bi bi-clock">@item.Uur</span></p>
                 
+                 </div>
              </div>
-         </div>
-    }
+        }
     
-}
-    </div>
+    }
+        </div>
 
+    
 </div>
