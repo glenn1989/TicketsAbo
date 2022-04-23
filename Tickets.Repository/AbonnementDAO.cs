@@ -56,6 +56,11 @@ namespace Tickets.Repository
             }
         }
 
+        public Task<IEnumerable<Abonnement>> FindByUser(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
         {
             try

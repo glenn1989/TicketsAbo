@@ -341,7 +341,6 @@ namespace Tickets.Controllers
                 
             }
 
-            
 
             foreach (var i in aboOrder)
             {
@@ -355,9 +354,6 @@ namespace Tickets.Controllers
 
             }
 
-           
-            
-            
 
             return View(listVM);
         }

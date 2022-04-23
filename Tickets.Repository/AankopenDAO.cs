@@ -62,9 +62,21 @@ namespace Tickets.Repository
             }
         }
 
-        public Task<IEnumerable<Aankopen>> FindByOrder(int id)
+        public async Task<IEnumerable<Aankopen>> FindByOrder(int id)
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IEnumerable<Aankopen>> FindByUser(string id)
+        {
+            try
+            {
+                return await _ticketsDb.Aankopens.Include(a => a.Client).Include(a => a.Abonnements).Include(a => a.Tickets).Where(a => a.ClientId.Equals(id)).ToListAsync();
+            } catch (Exception ex)
+            {
+                throw new Exception("Error in AankopenDAO");
+            }
+        }
+
     }
 }

@@ -3,20 +3,69 @@
     ViewData["Title"] = "Overview";
 }
 
-<h1>Overzicht van uw bestelling</h1>
+<div class="pagecontainer">
+    <h1>Overzicht van uw bestelling</h1>
 
 <p>Bedankt voor uw bestelling.</p>
 
 @if(@Model != null){
 
-@foreach(var i in @Model.OverviewList)
-{
-        @if (i.isAbo == true)
-        {
-            
-        }
+    <div class="container-sm">
+        <h3>Tickets</h3>
+        <table class="table-bordered table-responsive-md tablepage">
+            <thead>
+                <tr>
+                    <th class="col-md-1">@Html.DisplayNameFor(model => model.OverviewList[0].TicketID)</th>
+                    <th class="col-md-4">Wedstrijd</th>
+                    <th class="col-md-1">@Html.DisplayNameFor(model => model.OverviewList[0].Vaknummer)</th>
+                    <th class="col-md-1">@Html.DisplayNameFor(model => model.OverviewList[0].Pleknummer)</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var i in @Model.OverviewList)
+                {
+                    if(i.isAbo == false || i.isAbo == null)
+                    {
+                        <tr>
+                            <td class="col-md-1">@Html.DisplayFor(modeli => i.TicketID)</td>
+                            <td class="col-md-4">@Html.DisplayFor(modeli => i.Thuisploeg) - @Html.DisplayFor(modeli => i.Uitploeg)</td>
+                            <td class="col-md-1">@Html.DisplayFor(modeli => i.Vaknummer)</td>
+                            <td class="col-md-1">@Html.DisplayFor(modeli => i.Pleknummer)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
 
+        <h3>Abonnementen</h3>
+         <table class="table-bordered table-responsive-md tablepage">
+            <thead class="tablepage">
+                <tr>
+                    <th class="col-md-1">@Html.DisplayNameFor(model => model.OverviewList[0].TicketID)</th>
+                    <th class="col-md-4">@Html.DisplayNameFor(model => model.OverviewList[0].Thuisploeg)</th>
+                    <th class="col-md-1">@Html.DisplayNameFor(model => model.OverviewList[0].Vaknummer)</th>
+                    <th class="col-md-1">@Html.DisplayNameFor(model => model.OverviewList[0].Pleknummer)</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var i in @Model.OverviewList)
+                {
+                    if(i.isAbo == true)
+                    {
+                        <tr>
+                            <td class="col-sm-1">@Html.DisplayFor(modeli => i.TicketID)</td>
+                            <td class="col-md-4"><p>Abonnement voor </p>@Html.DisplayFor(modeli => i.Thuisploeg)</td>
+                            <td class="col-md-1">@Html.DisplayFor(modeli => i.Vaknummer)</td>
+                            <td class="col-md-1">@Html.DisplayFor(modeli => i.Pleknummer)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 
 }
-}
+</div>
 

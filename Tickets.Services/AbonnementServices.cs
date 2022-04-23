@@ -33,6 +33,11 @@ namespace Tickets.Services
             return await _abonnementDAO.FindByOrder(id);
         }
 
+        public Task<IEnumerable<Abonnement>> FindByUser(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
         {
            return await _abonnementDAO.FindThuisWedstrijd(id);

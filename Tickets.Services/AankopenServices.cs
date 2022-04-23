@@ -32,6 +32,11 @@ namespace Tickets.Services
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<Aankopen>> FindByUser(string id)
+        {
+            return await _aankopenDAO.FindByUser(id);
+        }
+
         public Task<IEnumerable<Aankopen>> FindThuisWedstrijd(int id)
         {
             throw new NotImplementedException();

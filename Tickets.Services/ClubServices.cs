@@ -39,5 +39,10 @@ namespace Tickets.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<Club>> FindByUser(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

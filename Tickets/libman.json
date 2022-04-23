@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery.collapsible@1.2",
+      "destination": "wwwroot/js"
+    }
+  ]
+}

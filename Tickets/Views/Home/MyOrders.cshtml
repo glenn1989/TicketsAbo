@@ -1,0 +1,40 @@
+﻿@model Tickets.ViewModel.OverViewHashMap
+@{
+    ViewData["Title"] = "MyOrders";
+}
+<div>
+    <h1>Mijn orders</h1>
+
+    <div class="">
+
+    </div id="accordion">
+
+@foreach(var item in Model.OverviewMap)
+{
+
+    
+
+    <h2>@item.Key</h2>
+    <table>
+        <tr>
+            <th>title</th>
+        </tr>
+
+        @foreach(var i in item.Value.OverviewList)
+        {
+            <tr>
+                <td>@i.Thuisploeg</td>
+            </tr>
+        }
+    </table>
+}
+</div>
+
+
+<script>
+    $( function() {
+    $( "#accordion" ).collapsible();
+  } );
+</script>
+
+

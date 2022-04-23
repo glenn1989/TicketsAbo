@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  
 }
 
 @media (min-width: 768px) {
@@ -11,12 +12,18 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  
 }
 
 body {
-    margin-bottom:110px;
-  width:100%;
-  background-color:darkgrey
+    margin-bottom: 110px;
+    width: 100%;
+    background-image: url("../Images/5037896.jpg");
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    color:lightgrey;
+    scroll-behavior:smooth;
 }
 
 footer{
@@ -47,6 +54,55 @@ footer{
     margin-top: 2px;
 }
 
-.box{
-    margin:10px 0;
+
+.container-sm{
+    width: 800px;
 }
+
+.card {
+    width: 500px;
+    margin: 10px auto;
+    background-color:darkgray;
+    border: solid 3px white;
+
+    
+}
+
+.dropdownsite{
+    width:500px;
+    margin: 0 auto;
+}
+
+.pagecontainer{
+    width:auto;
+    background-color:darkgray;
+    height:800px;
+    margin: 0 auto;
+    color:black;
+}
+
+.tablepage{
+    width:auto;
+    table-layout:fixed;
+}
+
+
+
+
+.minilogo1{
+    width:20px;
+    position:relative;
+    top: 32px;
+    left:-159px;
+
+}
+
+.minilogo2 {
+    width: 20px;
+    position: relative;
+    top: -34px;
+    left:159px;
+
+}
+
+

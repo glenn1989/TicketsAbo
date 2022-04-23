@@ -15,5 +15,8 @@ namespace Tickets.Repository.Interfaces
         Task Add(T entity);
 
         Task<IEnumerable<T>> FindByOrder(int id);
+
+        Task<IEnumerable<T>> FindByUser(String id);
+
     }
 }

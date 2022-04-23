@@ -41,6 +41,11 @@ namespace Tickets.Repository
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<VakStadion>> FindByUser(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<VakStadion>> FindThuisWedstrijd(int id)
         {
             throw new NotImplementedException();

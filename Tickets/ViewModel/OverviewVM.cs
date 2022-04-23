@@ -16,7 +16,12 @@
 
         public bool isAbo { get; set; }
 
-        
+    }
+
+    public class OverViewHashMap
+    {
+        public IDictionary<int, OverviewListVM>? OverviewMap { get; set; }
 
     }
+
 }

@@ -33,6 +33,11 @@ namespace Tickets.Services
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<Plaat>> FindByUser(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Plaat>> FindThuisWedstrijd(int id)
         {
             throw new NotImplementedException();

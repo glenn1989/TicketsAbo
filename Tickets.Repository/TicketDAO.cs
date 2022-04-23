@@ -72,5 +72,10 @@ namespace Tickets.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<Ticket>> FindByUser(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
