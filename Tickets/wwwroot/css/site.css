@@ -64,6 +64,7 @@ footer{
     margin: 10px auto;
     background-color:darkgray;
     border: solid 3px white;
+    padding: 5px;
 
     
 }
@@ -85,8 +86,6 @@ footer{
     width:auto;
     table-layout:fixed;
 }
-
-
 
 
 .minilogo1{

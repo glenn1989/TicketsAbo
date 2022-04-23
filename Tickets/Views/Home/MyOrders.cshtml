@@ -4,37 +4,71 @@
 }
 <div>
     <h1>Mijn orders</h1>
-
-    <div class="">
-
-    </div id="accordion">
-
+  
+    <div>
 @foreach(var item in Model.OverviewMap)
 {
-
-    
+    <div class="card">
 
     <h2>@item.Key</h2>
+    <h3>Ticket</h3>
     <table>
-        <tr>
-            <th>title</th>
-        </tr>
+          <thead>
+                <tr>
+                    <th class="col-md-1">Ticketnummer</th>
+                    <th class="col-md-4">Wedstrijd</th>
+                    <th class="col-md-1">Vaknummer</th>
+                    <th class="col-md-1">Pleknummer</th>
+                    
+                </tr>
+            </thead>
 
         @foreach(var i in item.Value.OverviewList)
         {
-            <tr>
-                <td>@i.Thuisploeg</td>
-            </tr>
+
+           if(i.isAbo == null || i.isAbo == false)
+           {
+            <tbody>
+                <tr>
+                    <td class="col-sm-1">@Html.DisplayFor(modeli => i.TicketID)</td>
+                    <td class="col-md-4">@Html.DisplayFor(modeli => i.Thuisploeg) - @Html.DisplayFor(modeli => i.Uitploeg)</td>
+                    <td class="col-md-1">@Html.DisplayFor(modeli => i.Vaknummer)</td>
+                    <td class="col-md-1">@Html.DisplayFor(modeli => i.Pleknummer)</td>
+                </tr>
+            </tbody>
+            }
+
+            
         }
     </table>
+    <h3>Abonnement</h3>
+    <table>
+        <thead>
+            <th class="col-md-1">Ticketnummer</th>
+            <th class="col-md-4">Thuisploeg</th>
+            <th class="col-md-1">Vaknummer</th>
+            <th class="col-md-1">Pleknummer</th>
+        </thead>
+        
+                    @foreach(var i in item.Value.OverviewList)
+                    {
+                        if(i.isAbo == true)
+                        {
+                            <tr>
+                                <td class="col-sm-1">@Html.DisplayFor(modeli => i.TicketID)</td>
+                                <td class="col-md-4"><p>Abonnement voor </p>@Html.DisplayFor(modeli => i.Thuisploeg)</td>
+                                <td class="col-md-1">@Html.DisplayFor(modeli => i.Vaknummer)</td>
+                                <td class="col-md-1">@Html.DisplayFor(modeli => i.Pleknummer)</td>
+                            </tr>
+                        }
+                    }
+    </table>
+    </div>
 }
+</div>
 </div>
 
 
-<script>
-    $( function() {
-    $( "#accordion" ).collapsible();
-  } );
-</script>
+
 
 
