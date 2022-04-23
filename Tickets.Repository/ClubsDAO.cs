@@ -60,5 +60,10 @@ namespace Tickets.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Task Delete(Club entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

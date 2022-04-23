@@ -1,4 +1,4 @@
-﻿@model Tickets.ViewModel.ClubVM;
+﻿@model Tickets.ViewModel.ClubListVM;
 @{
     ViewData["Title"] = "Clubpage";
     
@@ -6,14 +6,20 @@
 
 
 <div id="ploeginfo" class="container">
-    <h1>Clubpage</h1>
-
-    <p>Welkom op de pagina van @Model.Clubnaam</p>
-    <div id="text">
-        
-    </div>
-    
-    <a asp-controller="Wedstrijd" asp-action="Wedstrijden" asp-route-id="@Model.Stamnummer">Wedstrijden</a>
+    <h1>Onze Clubs</h1>
+   
+    @foreach(var i in Model.clublist)
+    {
+       <div class="card box ">
+                <img class="stadion" src="~/Images/(@Html.DisplayFor(modelitem => i.Stadion)).jpg" alt="@i.Stadion">
+                <div class="card-body">
+                    <h5>@i.Clubnaam</h5>     
+                    <p>Abonnees: @Html.DisplayFor(modelitem => i.Abonnees)</p>
+                    <p>Stadion: @Html.DisplayFor(modelitem => i.Stadion)</p>
+                    <p>Capaciteit: @Html.DisplayFor(modelitem => i.Capaciteit)</p>
+                </div>
+            </div>
+    }
 </div>
 
     

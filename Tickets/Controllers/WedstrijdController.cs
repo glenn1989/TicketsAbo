@@ -95,8 +95,17 @@ namespace Tickets.Controllers
             }
 
             VakStadion vakStadion = new VakStadion();
-            
-            vakStadion = await _vakStadionService.FindById(entityVM.VakId, id2);
+            Club clubcapa = new Club();
+
+            if(id3 == 0 || id3 == null)
+            {
+                clubcapa = await _clubService.FindById((int)id,0);
+                vakStadion = await _vakStadionService.FindById(id2, clubcapa.StadionId);
+            } else
+            {
+                vakStadion = await _vakStadionService.FindById(entityVM.VakId, id2);
+            }
+
             int capaciteit = vakStadion.Capaciteit;
 
             var alltickets = await _ticketService.FindThuisWedstrijd(id);

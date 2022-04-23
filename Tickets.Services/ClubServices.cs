@@ -44,5 +44,10 @@ namespace Tickets.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task Delete(Club entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -80,5 +80,10 @@ namespace Tickets.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Task Delete(Wedstrijd entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

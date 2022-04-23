@@ -22,6 +22,11 @@ namespace Tickets.Services
             await _aankopenDAO.Add(entity);
         }
 
+        public async Task Delete(Aankopen entity)
+        {
+            await _aankopenDAO.Delete(entity);
+        }
+
         public async Task<Aankopen> FindById(int? id, int? id2 = 0)
         {
             return await _aankopenDAO.FindById(id,id2);

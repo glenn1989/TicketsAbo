@@ -32,6 +32,11 @@ namespace Tickets.Repository
             }
         }
 
+        public Task Delete(Abonnement entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Abonnement> FindById(int? id, int? id2 = 0)
         {
             try

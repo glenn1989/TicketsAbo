@@ -24,6 +24,11 @@ namespace Tickets.Repository
             throw new NotImplementedException();
         }
 
+        public Task Delete(VakStadion entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<VakStadion> FindById(int? id,int? id2)
         {
             try

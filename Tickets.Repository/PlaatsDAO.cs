@@ -33,11 +33,24 @@ namespace Tickets.Repository
 
         }
 
-        public async Task<Plaat> FindById(int? id, int? id2)
+        public async Task Delete(Plaat entity)
+        {
+            _ticketsDb.Entry(entity).State = EntityState.Deleted;
+            try
+            {
+                await _ticketsDb.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("error in PlaatsDAO");
+            }
+        }
+
+        public async Task<Plaat> FindById(int? id, int? id2=0)
         {
             try
             {
-                return await _ticketsDb.Plaats.Where(a => a.VakId == id).Where(a => a.StadionId == id2).FirstOrDefaultAsync(); 
+                return await _ticketsDb.Plaats.Include(a => a.Tickets).Include(a => a.Abonnements).Where(a => a.PlaatsId == id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {

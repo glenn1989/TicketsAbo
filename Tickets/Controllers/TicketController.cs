@@ -360,7 +360,50 @@ namespace Tickets.Controllers
         }
 
 
-        
+        public async Task<IActionResult> DeleteTicket(int id)
+        {
+            
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            DeleteVM deleteVM = new DeleteVM();
+
+            
+
+
+            try
+            {
+                Ticket ticket = await _ticketService.FindById(id, 0);
+                Plaat plaats = await _plaatsService.FindById(ticket.PlaatsId, 0);
+                Aankopen aankoop = await _aankopenService.FindById(ticket.AankoopId, 0);
+
+
+                deleteVM.TicketID = id;
+                deleteVM.PlaatsID = (int)ticket.PlaatsId;
+                deleteVM.OrderID = (int)ticket.AankoopId;
+
+                var ticketlist = await _ticketService.FindByOrder(aankoop.AankoopId);
+                var abolist = await _abonnementService.FindByOrder(aankoop.AankoopId);
+
+                await _plaatsService.Delete(plaats);
+                await _ticketService.Delete(ticket);
+
+                if(ticketlist.Count() == 1 && abolist.Count() == 0)
+                {
+                    await _aankopenService.Delete(aankoop);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Kan entiteit niet verwijderen.");
+            }
+            
+
+            return View(deleteVM);
+        }
     }
 
 }

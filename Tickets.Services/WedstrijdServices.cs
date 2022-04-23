@@ -47,5 +47,10 @@ namespace Tickets.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task Delete(Wedstrijd entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

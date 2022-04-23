@@ -18,5 +18,7 @@ namespace Tickets.Repository.Interfaces
 
         Task<IEnumerable<T>> FindByUser(String id);
 
+
+        Task Delete(T entity);
     }
 }

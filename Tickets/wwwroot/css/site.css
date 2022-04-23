@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  font-family: Verdana, Arial
   
 }
 
@@ -80,6 +81,7 @@ footer{
     height:800px;
     margin: 0 auto;
     color:black;
+    padding:10px;
 }
 
 .tablepage{
@@ -133,4 +135,10 @@ footer{
 .container-fluid{
     margin: 10px 0;
     text-align:center;
+}
+
+.stadion {
+    width: 450px;
+    margin: auto;
+    margin-top: 2px;
 }

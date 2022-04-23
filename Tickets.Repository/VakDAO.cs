@@ -25,6 +25,11 @@ namespace Tickets.Repository
             throw new NotImplementedException();
         }
 
+        public Task Delete(Vak entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Vak> FindById(int? id, int? id2 = 0)
         {
             throw new NotImplementedException();

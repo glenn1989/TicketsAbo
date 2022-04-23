@@ -23,6 +23,11 @@ namespace Tickets.Services
             await _abonnementDAO.Add(entity);
         }
 
+        public Task Delete(Abonnement entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Abonnement> FindById(int? id, int? id2 = 0)
         {
             return await _abonnementDAO.FindById(id, id2);

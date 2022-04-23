@@ -23,6 +23,11 @@ namespace Tickets.Services
            await _ticketDAO.Add(entity);
         }
 
+        public async Task Delete(Ticket entity)
+        {
+            await _ticketDAO.Delete(entity);
+        }
+
         public async Task<Ticket> FindById(int? id,int? id2=0)
         {
             return await _ticketDAO.FindById(id,id2);

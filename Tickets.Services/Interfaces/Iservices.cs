@@ -18,5 +18,7 @@ namespace Tickets.Services.Interfaces
         Task<IEnumerable<T>> FindByOrder(int id);
 
         Task<IEnumerable<T>> FindByUser(string id);
+
+        Task Delete(T entity);
     }
 }

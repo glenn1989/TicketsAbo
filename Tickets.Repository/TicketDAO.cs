@@ -77,5 +77,18 @@ namespace Tickets.Repository
         {
             throw new NotImplementedException();
         }
+
+        public async Task Delete(Ticket entity)
+        {
+            _ticketsDb.Entry(entity).State = EntityState.Deleted;
+            try
+            {
+                await _ticketsDb.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("error in PlaatsDAO");
+            }
+        }
     }
 }

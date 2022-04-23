@@ -23,6 +23,11 @@ namespace Tickets.Services
              await _plaatsDAO.Add(entity);
         }
 
+        public async Task Delete(Plaat entity)
+        {
+            await _plaatsDAO.Delete(entity);
+        }
+
         public async Task<Plaat> FindById(int? id, int? id2)
         {
             return await _plaatsDAO.FindById(id, id2);
