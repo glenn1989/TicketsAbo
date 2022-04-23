@@ -9,5 +9,7 @@ namespace Tickets.ViewModel
         public string? Stadion { get; set; }
 
         public int? Capaciteit { get; set; }
+
+        public DateTime? Competitiestart { get; set; }
     }
 }

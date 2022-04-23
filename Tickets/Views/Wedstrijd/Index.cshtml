@@ -37,7 +37,16 @@
                 
                 <p><span class="bi bi-calendar-week">@item.Datum.Value.ToString("dd MMMM yyyy")</span></p>
                 <p><span class="bi bi-clock">@item.Uur</span></p>
-                <a class="btn-primary btn" asp-action="Ticketselect" asp-controller="Wedstrijd" asp-route-id="@item.WedstrijdId">Koop tickets</a>
+
+                        @if(DateTime.Now.AddMonths(1) >= item.Datum)
+                        {
+                            <a class="btn-primary btn" asp-action="Ticketselect" asp-controller="Wedstrijd" asp-route-id="@item.WedstrijdId">Koop tickets</a>
+                        }
+                        else
+                        {
+                            <button class="btn-primary btn" disabled>Tickets nog niet verkrijgbaar.</button>
+                        }
+                        
              </div>
          </div>
     }

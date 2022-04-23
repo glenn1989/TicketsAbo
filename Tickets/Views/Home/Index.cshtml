@@ -17,8 +17,16 @@
                 <img class="logo" src="~/Images/Logos/(@Html.DisplayFor(modelitem => item.Clubnaam)).png" alt="@item.Clubnaam">
                 <div class="card-body">
                     <h5>@item.Clubnaam</h5>
+
+                    @if(DateTime.Now.AddMonths(1) >= new DateTime(2022, 05, 01))
+                    {
+                        <a asp-controller="Abonnement" asp-action="Index" asp-route-id="@item.Stamnummer">Koop hier uw abonnement voor @item.Clubnaam</a>
+                    } else
+                    {
+                        <span><a>Abonnementen niet meer beschikbaar</a></span>
+                    }
+
                     
-                    <a asp-controller="Abonnement" asp-action="Index" asp-route-id="@item.Stamnummer">Koop hier uw abonnement voor @item.Clubnaam</a>
                 </div>
             </div>
 

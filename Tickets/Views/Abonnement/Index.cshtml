@@ -8,8 +8,8 @@
     <form asp-action="Index" asp-controller="Abonnement">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="mb-3">
-                <label asp-for="VakId"></label>
-                <select asp-for="VakId" class="form-select" asp-items="@Model.Club">
+                <label asp-for="VakId">Kies uw vak:</label>
+                <select asp-for="VakId" class="form-select dropdownsite" asp-items="@Model.Club">
                     <option disabled-selected></option>
                 </select>
                 <span asp-validation-for="VakId" class="text-danger"></span>
@@ -28,11 +28,11 @@
 
         if(@Model.VakId == null || @Model.VakId == 2 || @Model.VakId == 6)
         {
-            <button class="btn-primary btn" disabled>Koop abonnement</button>
+            <button class="btn-primary btn btn-koop" disabled>Koop abonnement</button>
         }
         else
         {
-             <a class="btn-primary btn" asp-action="Select" asp-controller="Wedstrijd" asp-route-id="@Model.ThuisploegId" asp-route-id2="@Model.VakId">Koop abonnement</a>
+             <a class="btn-primary btn btn-koop" asp-action="Select" asp-controller="Wedstrijd" asp-route-id="@Model.ThuisploegId" asp-route-id2="@Model.VakId">Koop abonnement</a>
         }
         
        

@@ -104,4 +104,33 @@ footer{
 
 }
 
+.trash{
+    width:20px;
+}
 
+.cardOrders {
+    width: 600px;
+    margin: 10px auto;
+    background-color: darkgray;
+    border: solid 3px white;
+    padding: 5px;
+}
+
+.dropdownkeuze{
+    width:500px;
+    margin: 0 auto;
+}
+
+.pagecontainerkeuze {
+    width: auto;
+    background-color: darkgray;
+    height: 700px;
+    margin: 0 auto;
+    color: black;
+}
+
+
+.container-fluid{
+    margin: 10px 0;
+    text-align:center;
+}

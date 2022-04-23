@@ -337,6 +337,7 @@ namespace Tickets.Controllers
                 overview.Vaknummer = (int)i.Plaats.VakId;
                 overview.Pleknummer = (int)i.Plaats.Plaatsnummer;
                 overview.TicketID = i.TicketId;
+                
                 listVM.OverviewList.Add(overview);
                 
             }
@@ -357,6 +358,8 @@ namespace Tickets.Controllers
 
             return View(listVM);
         }
+
+
         
     }
 

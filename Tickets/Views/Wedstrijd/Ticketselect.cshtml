@@ -2,32 +2,35 @@
 @{
     ViewData["Title"] = "Ticketselect";
 }
+<div class="pagecontainerkeuze">
+    <h2>Koop nu uw tickets</h2>
+    <h5>Voor de wedstrijd van <br />@Model.Thuisploeg - @Model.Uitploeg</h5>
 
-<h2>Koop nu uw tickets</h2>
-<h5>Voor de wedstrijd van <br />@Model.Thuisploeg - @Model.Uitploeg</h5>
+    <span><strong>@TempData["Status"]</strong></span>
 
-<div class="container">
-    <div class="col-md-4">
-        <form asp-action="Select" asp-route-id="@Model.wedstrijdID" asp-route-id2="@Model.StadionId" asp-route-id3="@Model.StadionId">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="mb-3">
-                <label asp-for="VakId"></label>
-                <select asp-for="VakId" class="form-select" asp-items="@Model.Vak">
-                    <option></option>
-                </select>
-                <span asp-validation-for="@Model.Vak" class="text-danger"></span>
-            </div>
+    <div class="dropdownkeuze">
+        <div class="col-md-8">
+            <form asp-action="Select" asp-route-id="@Model.wedstrijdID" asp-route-id2="@Model.StadionId" asp-route-id3="@Model.StadionId">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-8">
+                    <label asp-for="VakId"></label>
+                    <select asp-for="VakId" class="form-select" asp-items="@Model.Vak">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="@Model.Vak" class="text-danger"></span>
+                </div>
             
-            <div class="form-group">
-                <label asp-for="aantalTickets" class="control-label"></label>
-                <input asp-for="aantalTickets" class="form-control" />
-                <span asp-validation-for="aantalTickets" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="aantalTickets" class="control-label"></label>
+                    <input asp-for="aantalTickets" class="form-control" />
+                    <span asp-validation-for="aantalTickets" class="text-danger"></span>
+                </div>
             
-            <div class="form-group">
-                <input type="submit" value="Toevoegen aan winkelmandje" class="btn btn-primary"/>
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Toevoegen aan winkelmandje" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

@@ -35,6 +35,8 @@ namespace Tickets.Controllers
 
         public async Task<IActionResult> Index()
         {
+
+            
             var list = await _clubService.GetAll();
             List<ClubVM> listVM = _mapper.Map<List<ClubVM>>(list);
             return View(listVM);
@@ -75,6 +77,7 @@ namespace Tickets.Controllers
                     overview.Vaknummer = (int)j.Plaats.VakId;
                     overview.Pleknummer = (int)j.Plaats.Plaatsnummer;
                     overview.TicketID = j.TicketId;
+                    overview.Wedstrijddatum = (System.DateTime)j.Wedstrijd.Datum;
                     listVM.OverviewList.Add(overview);
                     
 

@@ -8,7 +8,7 @@
     <div>
 @foreach(var item in Model.OverviewMap)
 {
-    <div class="card">
+    <div class="cardOrders">
 
     <h2>@item.Key</h2>
     <h3>Ticket</h3>
@@ -34,7 +34,11 @@
                     <td class="col-md-4">@Html.DisplayFor(modeli => i.Thuisploeg) - @Html.DisplayFor(modeli => i.Uitploeg)</td>
                     <td class="col-md-1">@Html.DisplayFor(modeli => i.Vaknummer)</td>
                     <td class="col-md-1">@Html.DisplayFor(modeli => i.Pleknummer)</td>
-                </tr>
+                @if(DateTime.Now.AddDays(7) <= i.Wedstrijddatum.Date)
+                {
+                    <td><a asp-action="DeleteTicket" asp-controller="Ticket" asp-route-id="@i.TicketID"><img class="trash" src="~/Images/trash-garbage-recycle-bin-trash-bin-icon-stencil-symbol-logo-trademark-transparent-png-967562.png" alt="delete" /></a></td>
+                }
+                 </tr>
             </tbody>
             }
 

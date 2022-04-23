@@ -16,16 +16,22 @@ namespace Tickets.Controllers
         private Iservices<Wedstrijd> _wedstrijdService;
         private Iservices<Vak> _vakService;
         private Iservices<VakStadion> _vakStadionService;
+        private Iservices<Ticket> _ticketService;
+        private Iservices<Abonnement> _abonnementService;
         private readonly IMapper _mapper;
 
         public WedstrijdController(IMapper mapper, Iservices<Club> clubservice,
-            Iservices<Wedstrijd> wedstrijdservice, Iservices<Vak> vakservice, Iservices<VakStadion> vakstadionservice)
+            Iservices<Wedstrijd> wedstrijdservice, Iservices<Vak> vakservice,
+            Iservices<VakStadion> vakstadionservice, Iservices<Ticket> ticketservice, Iservices<Abonnement> abonnementservice)
         {
             _mapper = mapper;
             _clubService = clubservice;
             _wedstrijdService = wedstrijdservice;
             _vakService = vakservice;
             _vakStadionService = vakstadionservice;
+            _ticketService = ticketservice;
+            _abonnementService = abonnementservice;
+
         }
 
         [HttpGet]
@@ -45,6 +51,8 @@ namespace Tickets.Controllers
         public async Task<IActionResult> Index(WedstrijdVM wVM)
         {
 
+
+
             var sel = Convert.ToInt32(wVM.Thuisploeg);
             var list = await _wedstrijdService.FindThuisWedstrijd(sel);
             List<WedstrijdlistVM> wedstrijdlistVMs = _mapper.Map<List<WedstrijdlistVM>>(list);
@@ -62,7 +70,8 @@ namespace Tickets.Controllers
                 return NotFound();
             }
 
-            Wedstrijd wedstrijd = await _wedstrijdService.FindById(id, id2);
+
+                Wedstrijd wedstrijd = await _wedstrijdService.FindById(id, id2);
 
             var ticket = new TicketVM();
 
@@ -86,6 +95,29 @@ namespace Tickets.Controllers
             }
 
             VakStadion vakStadion = new VakStadion();
+            
+            vakStadion = await _vakStadionService.FindById(entityVM.VakId, id2);
+            int capaciteit = vakStadion.Capaciteit;
+
+            var alltickets = await _ticketService.FindThuisWedstrijd(id);
+
+            var allticketsvak = alltickets.Where(a => a.Plaats.VakId == entityVM.VakId).Count();
+
+            var allabos = await _abonnementService.FindThuisWedstrijd(id);
+
+            var allabosvak = allabos.Where(a => a.Plaats.VakId == entityVM.VakId).Count();
+
+            int takenseats = allticketsvak + allabosvak;
+
+
+            if (takenseats + entityVM.aantalTickets > capaciteit) 
+            {
+                TempData["Status"] = "Vak is uitverkocht.";
+                return View("Ticketselect");
+                
+            }
+
+                
             CartVM item = new CartVM();
 
             if (id3==0 || id3==null)

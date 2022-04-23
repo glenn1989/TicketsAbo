@@ -14,6 +14,8 @@
         public int? Pleknummer { get; set; }
         public int? TicketID { get; set; }
 
+        public DateTime Wedstrijddatum { get; set; }
+
         public bool isAbo { get; set; }
 
     }
