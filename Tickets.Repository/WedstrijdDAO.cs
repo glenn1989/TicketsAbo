@@ -70,5 +70,10 @@ namespace Tickets.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<Wedstrijd>> FindByOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

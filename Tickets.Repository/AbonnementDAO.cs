@@ -44,6 +44,18 @@ namespace Tickets.Repository
             }
         }
 
+        public async Task<IEnumerable<Abonnement>> FindByOrder(int id)
+        {
+            try
+            {
+                return await _ticketsDb.Abonnements.Include(a => a.Plaats).Include(a => a.StamnummerNavigation).Where(a => a.AankoopId == id).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in AbonnementDAO");
+            }
+        }
+
         public async Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
         {
             try

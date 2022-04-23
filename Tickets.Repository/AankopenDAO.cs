@@ -62,6 +62,9 @@ namespace Tickets.Repository
             }
         }
 
-       
+        public Task<IEnumerable<Aankopen>> FindByOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

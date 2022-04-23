@@ -27,6 +27,10 @@ namespace Tickets.Services
             return await _aankopenDAO.FindById(id,id2);
         }
 
+        public Task<IEnumerable<Aankopen>> FindByOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task<IEnumerable<Aankopen>> FindThuisWedstrijd(int id)
         {

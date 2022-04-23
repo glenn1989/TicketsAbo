@@ -28,6 +28,11 @@ namespace Tickets.Services
             return await _abonnementDAO.FindById(id, id2);
         }
 
+        public async Task<IEnumerable<Abonnement>> FindByOrder(int id)
+        {
+            return await _abonnementDAO.FindByOrder(id);
+        }
+
         public async Task<IEnumerable<Abonnement>> FindThuisWedstrijd(int id)
         {
            return await _abonnementDAO.FindThuisWedstrijd(id);

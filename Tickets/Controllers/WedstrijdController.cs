@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Tickets.Domain.Entities;
@@ -76,6 +77,7 @@ namespace Tickets.Controllers
         }
 
         //[HttpPost]
+        
         public async Task<IActionResult> Select(TicketVM entityVM, int id, int id2, int id3)
         {
             if (id == null)
@@ -136,6 +138,7 @@ namespace Tickets.Controllers
             else
             {
                 shopping = new ShoppingCartVM();
+             
                 shopping.Cart = new List<CartVM>();
             }
 

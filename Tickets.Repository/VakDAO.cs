@@ -30,6 +30,11 @@ namespace Tickets.Repository
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<Vak>> FindByOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Vak>> FindThuisWedstrijd(int id)
         {
             throw new NotImplementedException();

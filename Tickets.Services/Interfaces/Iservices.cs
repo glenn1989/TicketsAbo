@@ -14,5 +14,7 @@ namespace Tickets.Services.Interfaces
 
         Task<T> FindById(int? id, int? id2);
         Task Add(T entity);
+
+        Task<IEnumerable<T>> FindByOrder(int id);
     }
 }

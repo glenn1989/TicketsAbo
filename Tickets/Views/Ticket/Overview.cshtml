@@ -1,0 +1,22 @@
+﻿@model Tickets.ViewModel.OverviewListVM
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<h1>Overzicht van uw bestelling</h1>
+
+<p>Bedankt voor uw bestelling.</p>
+
+@if(@Model != null){
+
+@foreach(var i in @Model.OverviewList)
+{
+        @if (i.isAbo == true)
+        {
+            
+        }
+
+
+}
+}
+

@@ -28,6 +28,11 @@ namespace Tickets.Services
             return await _ticketDAO.FindById(id,id2);
         }
 
+        public async Task<IEnumerable<Ticket>> FindByOrder(int id)
+        {
+            return await _ticketDAO.FindByOrder(id);
+        }
+
         public async Task<IEnumerable<Ticket>> FindThuisWedstrijd(int id)
         {
             return await _ticketDAO.FindThuisWedstrijd(id);

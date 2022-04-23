@@ -45,6 +45,11 @@ namespace Tickets.Repository
             }
         }
 
+        public Task<IEnumerable<Plaat>> FindByOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Plaat>> FindThuisWedstrijd(int id)
         {
             throw new NotImplementedException();

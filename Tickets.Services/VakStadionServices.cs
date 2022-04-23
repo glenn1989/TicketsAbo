@@ -30,6 +30,11 @@ namespace Tickets.Services
             return await _VakStadionDAO.FindById(id,id2);
         }
 
+        public Task<IEnumerable<VakStadion>> FindByOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<VakStadion>> FindThuisWedstrijd(int id)
         {
             throw new NotImplementedException();

@@ -56,6 +56,18 @@ namespace Tickets.Repository
             }
         }
 
+        public async Task<IEnumerable<Ticket>> FindByOrder(int id)
+        {
+            try
+            {
+                return await _ticketsDb.Tickets.Include(a => a.Plaats).Include(a => a.Wedstrijd).Where(a => a.AankoopId == id).ToListAsync();
+            } 
+            catch (Exception ex)
+            {
+                throw new Exception("Error in ticketDAO");
+            }
+        }
+
         public Task<IEnumerable<Ticket>> GetAll()
         {
             throw new NotImplementedException();

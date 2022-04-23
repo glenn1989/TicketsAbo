@@ -105,6 +105,7 @@ namespace Tickets.Controllers
         
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> OrderCheck()
         {
             ShoppingCartVM? cartlist = HttpContext.Session.GetObject<ShoppingCartVM>("OrderCheck");
@@ -149,7 +150,7 @@ namespace Tickets.Controllers
 
         }
 
-        [Authorize]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
 
@@ -163,15 +164,20 @@ namespace Tickets.Controllers
             Ticket ticket;
             Abonnement abonnement;
             Plaat plaats;
+            int aankoopID = 0;
+
+
+            aankoop = new Aankopen();
+            aankoop.ClientId = userID;
+            aankoop.Aankoopdatum = DateTime.Now;
+            await _aankopenService.Add(aankoop);
+            aankoopID = aankoop.AankoopId;
 
             try
             {
                 foreach (var item in cart)
                 {
-                    aankoop = new Aankopen();
-                    aankoop.ClientId = userID;
-                    aankoop.Aankoopdatum = item.Aankoopdatum;
-                    await _aankopenService.Add(aankoop);
+                    
 
 
                     if (item.IsAbonnement == true)
@@ -254,6 +260,12 @@ namespace Tickets.Controllers
                                 aboZitjes.Add((int)az.Plaats.Plaatsnummer);
                             }
 
+                            List<int> TicketZitjes = new List<int>();
+
+                            foreach(var tz in tickets.Where(a => a.Plaats.VakId == item.VakId))
+                            {
+                                TicketZitjes.Add((int)tz.Plaats.Plaatsnummer);
+                            }
 
                             int highestAboPlace = getHighestAboPlace(aboBezet, item.VakId);
 
@@ -264,13 +276,15 @@ namespace Tickets.Controllers
                             plaats = new Plaat();
                             ticket = new Ticket();
 
+                            int zitplaats = 0;
 
-                            while (aboZitjes.Contains(highestplace+1))
+
+                            while (aboZitjes.Contains(zitplaats+1) || TicketZitjes.Contains(zitplaats+1))
                             {
-                                ++highestplace;
+                                ++zitplaats;
                             }
 
-                            plaats.Plaatsnummer = ++highestplace;
+                            plaats.Plaatsnummer = ++zitplaats;
                             plaats.StadionId = item.StadionId;
                             plaats.VakId = item.VakId;
                             await _plaatsService.Add(plaats);
@@ -281,8 +295,11 @@ namespace Tickets.Controllers
                             await _ticketService.Add(ticket);
 
                         }
-                    }                    
+                    }
+                    
                 }
+                
+
 
             } 
             catch (DataException ex)
@@ -296,7 +313,53 @@ namespace Tickets.Controllers
             }
 
             HttpContext.Session.Clear();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Overview", new { id = aankoopID });
+        }
+
+        public async Task<IActionResult> Overview(int id)
+        {
+            OverviewVM overview;
+            OverviewListVM listVM = new OverviewListVM();
+            listVM.OverviewList = new List<OverviewVM>();
+            IEnumerable<Ticket> ticketOrder = await _ticketService.FindByOrder(id);
+            IEnumerable<Abonnement> aboOrder = await _abonnementService.FindByOrder(id);
+
+            
+
+            foreach (var i in ticketOrder)
+            {
+
+                overview = new OverviewVM();
+                Club club = await _clubService.FindById(i.Wedstrijd.ThuisploegId, 0);
+                Club club2 = await _clubService.FindById(i.Wedstrijd.UitploegId, 0);
+                overview.Thuisploeg = club.Clubnaam;
+                overview.Uitploeg = club2.Clubnaam;
+                overview.Vaknummer = (int)i.Plaats.VakId;
+                overview.Pleknummer = (int)i.Plaats.Plaatsnummer;
+                overview.TicketID = i.TicketId;
+                listVM.OverviewList.Add(overview);
+                
+            }
+
+            
+
+            foreach (var i in aboOrder)
+            {
+                overview = new OverviewVM();
+                overview.Thuisploeg = i.StamnummerNavigation.Clubnaam;
+                overview.isAbo = true;
+                overview.Vaknummer = (int)i.Plaats.VakId;
+                overview.Pleknummer = (int)i.Plaats.Plaatsnummer;
+                overview.TicketID = i.Abonnementsnummer;
+                listVM.OverviewList.Add(overview);
+
+            }
+
+           
+            
+            
+
+            return View(listVM);
         }
         
     }
